@@ -1,24 +1,23 @@
 package controller;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import service.CalculatorService;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class MathApplicationTester {
 
-    private MathApplication inputMathApplication;
-    private CalculatorService calculatorService;
+    @InjectMocks
+    private MathApplication inputMathApplication = new MathApplication();
 
-    @Before
-    public void setUp() {
-        inputMathApplication = new MathApplication();
-        calculatorService = mock(CalculatorService.class);
-        inputMathApplication.setCalcService(calculatorService);
-    }
+    @Mock
+    private CalculatorService calculatorService;
 
     @Test
     public void testAdd() {
