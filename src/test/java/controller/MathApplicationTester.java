@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import service.CalculatorService;
 
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -31,5 +32,17 @@ public class MathApplicationTester {
         verify(calculatorService, atLeast(2)).add(10.0, 20.0);
         verify(calculatorService, atMost(3)).add(10.0, 20.0);
         verify(calculatorService, never()).multiply(1.0, 2.0);
+    }
+
+    @Test
+    public void testAddUsingBDD() {
+        //given
+        given(calculatorService.add(20.0, 10.0)).willReturn(30.0);
+
+        //when
+        double result = calculatorService.add(20.0, 10.0);
+
+        //then
+        Assert.assertEquals(30.0, result, 0);
     }
 }
