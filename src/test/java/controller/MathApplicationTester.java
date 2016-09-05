@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import service.CalculatorService;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MathApplicationTester {
@@ -22,6 +22,14 @@ public class MathApplicationTester {
     @Test
     public void testAdd() {
         when(calculatorService.add(10.0, 20.0)).thenReturn(30.00);
+        when(calculatorService.subtract(20.0,10.0)).thenReturn(10.00);
         Assert.assertEquals(inputMathApplication.add(10.0, 20.0), 30.0, 0);
+        Assert.assertEquals(inputMathApplication.add(10.0, 20.0), 30.0, 0);
+        Assert.assertEquals(inputMathApplication.add(10.0, 20.0), 30.0, 0);
+        Assert.assertEquals(inputMathApplication.subtract(20.0, 10.0),10.0,0.0);
+        verify(calculatorService, atLeastOnce()).subtract(20.0, 10.0);
+        verify(calculatorService, atLeast(2)).add(10.0, 20.0);
+        verify(calculatorService, atMost(3)).add(10.0, 20.0);
+        verify(calculatorService, never()).multiply(1.0, 2.0);
     }
 }
